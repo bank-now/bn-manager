@@ -8,7 +8,7 @@ import (
 )
 
 var (
-	topic      = "interest-calculation"
+	topic      = "interest-calculation-v1"
 	nsqAddress = "192.168.88.24:4150"
 	name       = "manager"
 	version    = "v1"
