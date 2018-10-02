@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/bank-now/bn-common-io/queues/pub"
 	"log"
 )
@@ -15,6 +16,11 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	for i := 1; i <= 10; i++ {
+		producer.Publish(c.Topic, []byte(fmt.Sprint(i)))
+	}
+
 	producer.Stop()
 
 }
