@@ -10,13 +10,15 @@ import (
 var (
 	topic      = "interest-calculation"
 	nsqAddress = "192.168.88.24:4150"
+	name       = "manager"
+	version    = "v1"
 )
 
 func main() {
 	cfg := nsq.NewConfig()
-	flag.Var(&nsq.ConfigFlag{cfg}, "producer-opt", "option to passthrough to nsq.Producer (may be given multiple times, http://godoc.org/github.com/nsqio/go-nsq#Config)")
+	flag.Var(&nsq.ConfigFlag{cfg}, "producer-opt", "http://godoc.org/github.com/nsqio/go-nsq#Config")
 	flag.Parse()
-	cfg.UserAgent = fmt.Sprintf("manager-v1")
+	cfg.UserAgent = fmt.Sprintf("%s-%s", name, version)
 
 	producer, err := nsq.NewProducer(nsqAddress, cfg)
 	if err != nil {
