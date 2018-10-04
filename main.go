@@ -8,10 +8,15 @@ import (
 	"time"
 )
 
+const (
+	version = "v1"
+	name    = "manager"
+)
+
 func main() {
 	c := pub.Config{Address: "192.168.88.24:4150",
-		Version: "v1",
-		Name:    "manager",
+		Name:    name,
+		Version: version,
 		Topic:   operation.InterestOperationV1Topic}
 
 	producer, err := pub.Setup(c)
