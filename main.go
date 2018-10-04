@@ -21,7 +21,7 @@ func main() {
 
 	for i := 1; i <= 10; i++ {
 
-		item := operation.InterestOperation{
+		item := operation.InterestOperationV1{
 			Account: fmt.Sprint(i),
 			DateFor: time.Now()}
 		b, _ := item.ToJsonBytes()
