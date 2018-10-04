@@ -12,7 +12,7 @@ func main() {
 	c := pub.Config{Address: "192.168.88.24:4150",
 		Version: "v1",
 		Name:    "manager",
-		Topic:   "interest-calculation-v1"}
+		Topic:   operation.InterestOperationV1Topic}
 
 	producer, err := pub.Setup(c)
 	if err != nil {
