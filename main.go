@@ -5,7 +5,6 @@ import (
 	"github.com/bank-now/bn-common-io/queues/pub"
 	"github.com/bank-now/bn-common-model/common/operation"
 	"log"
-	"time"
 )
 
 const (
@@ -25,14 +24,10 @@ func main() {
 	}
 
 	for i := 1; i <= 10; i++ {
-
-		item := operation.InterestOperationV1{
-			Account: fmt.Sprint(i),
-			DateFor: time.Now()}
+		item := operation.NewInterestOperationV1(fmt.Sprint(i))
 		b, _ := item.ToJsonBytes()
 		producer.Publish(c.Topic, b)
 	}
-
 	producer.Stop()
 
 }
