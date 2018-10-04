@@ -3,7 +3,9 @@ package main
 import (
 	"fmt"
 	"github.com/bank-now/bn-common-io/queues/pub"
+	"github.com/bank-now/bn-common-model/common/operation"
 	"log"
+	"time"
 )
 
 func main() {
@@ -18,7 +20,12 @@ func main() {
 	}
 
 	for i := 1; i <= 10; i++ {
-		producer.Publish(c.Topic, []byte(fmt.Sprint(i)))
+
+		item := operation.InterestOperation{
+			Account: fmt.Sprint(i),
+			DateFor: time.Now()}
+		b, _ := item.ToJsonBytes()
+		producer.Publish(c.Topic, b)
 	}
 
 	producer.Stop()
