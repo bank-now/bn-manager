@@ -10,10 +10,11 @@ import (
 const (
 	version = "v1"
 	name    = "manager"
+	Address = "192.168.88.24:4150"
 )
 
 func main() {
-	c := pub.Config{Address: "192.168.88.24:4150",
+	c := pub.Config{Address: Address,
 		Name:    name,
 		Version: version,
 		Topic:   operation.InterestOperationV1Topic}
