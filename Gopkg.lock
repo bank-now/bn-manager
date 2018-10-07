@@ -3,11 +3,51 @@
 
 [[projects]]
   branch = "master"
+  digest = "1:447178794a780e85ba404bff6e89299c561533737a65fdeb7531d65dd031d974"
+  name = "github.com/bank-now/bn-common-io"
+  packages = ["queues/pub"]
+  pruneopts = "UT"
+  revision = "e0c5a6173945d09a67730ec44acff96983462614"
+
+[[projects]]
+  branch = "master"
+  digest = "1:b4ba99d56aed8dbf8fd25669c17c961105e00afd38f82b15a898cfb2b65757ba"
+  name = "github.com/bank-now/bn-common-model"
+  packages = ["common/operation"]
+  pruneopts = "UT"
+  revision = "f2a05cf3fb22e492a8be80aaedc25ed888246fe2"
+
+[[projects]]
+  branch = "master"
   digest = "1:4a0c6bb4805508a6287675fac876be2ac1182539ca8a32468d8128882e9d5009"
   name = "github.com/golang/snappy"
   packages = ["."]
   pruneopts = "UT"
   revision = "2e65f85255dbc3072edf28d6b5b8efc472979f5a"
+
+[[projects]]
+  digest = "1:3a26588bc48b96825977c1b3df964f8fd842cd6860cc26370588d3563433cf11"
+  name = "github.com/google/uuid"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "d460ce9f8df2e77fb1ba55ca87fafed96c607494"
+  version = "v1.0.0"
+
+[[projects]]
+  digest = "1:c79fb010be38a59d657c48c6ba1d003a8aa651fa56b579d959d74573b7dff8e1"
+  name = "github.com/gorilla/context"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "08b5f424b9271eedf6f9f0ce86cb9396ed337a42"
+  version = "v1.1.1"
+
+[[projects]]
+  digest = "1:e73f5b0152105f18bc131fba127d9949305c8693f8a762588a82a48f61756f5f"
+  name = "github.com/gorilla/mux"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "e3702bed27f0d39777b0b37b664b6280e8ef8fbf"
+  version = "v1.6.2"
 
 [[projects]]
   digest = "1:bb48459ec76efe45f13094480296462ef5c9aaa56662918819b7a8fce3155b8b"
@@ -18,23 +58,49 @@
   version = "v1.0.7"
 
 [[projects]]
-  digest = "1:be64684caf034b8d084f4973c36de86eb7522691ac9ba16b7b484be3cdb41c0c"
-  name = "github.com/nsqio/nsq"
+  digest = "1:cd2aa764d3258ce61fd303ec40a02e69a191d5aa0add283b2c67d80924f08968"
+  name = "github.com/openzipkin/zipkin-go"
   packages = [
-    "internal/app",
-    "internal/version",
+    ".",
+    "idgenerator",
+    "middleware/http",
+    "model",
+    "propagation",
+    "propagation/b3",
+    "reporter",
+    "reporter/log",
   ]
   pruneopts = "UT"
-  revision = "d22e9cf29f4caaef4819a04b93230b3a69a2d84e"
-  version = "v1.1.0"
+  revision = "70244c9703277c13566aac289c530a1143b14cf5"
+  version = "v0.1.2"
+
+[[projects]]
+  branch = "master"
+  digest = "1:76ee51c3f468493aff39dbacc401e8831fbb765104cbf613b89bef01cf4bad70"
+  name = "golang.org/x/net"
+  packages = ["context"]
+  pruneopts = "UT"
+  revision = "146acd28ed5894421fb5aac80ca93bc1b1f46f87"
+
+[[projects]]
+  digest = "1:ac6e1ca4a69204e0d0cdf97826399f21f719e4a03f360c7fff374dc245a21318"
+  name = "google.golang.org/grpc"
+  packages = ["metadata"]
+  pruneopts = "UT"
+  revision = "8dea3dc473e90c8179e519d91302d0597c0ca1d1"
+  version = "v1.15.0"
 
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
   input-imports = [
+    "github.com/bank-now/bn-common-io/queues/pub",
+    "github.com/bank-now/bn-common-model/common/operation",
+    "github.com/gorilla/mux",
     "github.com/nsqio/go-nsq",
-    "github.com/nsqio/nsq/internal/app",
-    "github.com/nsqio/nsq/internal/version",
+    "github.com/openzipkin/zipkin-go",
+    "github.com/openzipkin/zipkin-go/middleware/http",
+    "github.com/openzipkin/zipkin-go/reporter/log",
   ]
   solver-name = "gps-cdcl"
   solver-version = 1
