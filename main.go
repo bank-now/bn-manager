@@ -11,21 +11,22 @@ import (
 )
 
 const (
-	version   = "v1"
-	name      = "manager"
-	Address   = "192.168.88.24:4150"
-	ZipKinUrl = "http://192.168.88.24:9411/api/v2/spans"
+	serviceName = "InterestCalculation"
+	Version     = "v1"
+	Name        = "manager"
+	Address     = "192.168.88.24:4150"
+	ZipKinUrl   = "http://192.168.88.24:9411/api/v2/spans"
+	Action      = "publishItem"
 )
 
 var (
-	FullName = fmt.Sprint(name, "-", version)
-	action   = fmt.Sprint(operation.InterestOperationV2Topic, ".", "publishItem")
+	fullName = fmt.Sprint(Name, "-", Version, "-", Action)
 )
 
 func main() {
 	c := pub.Config{Address: Address,
-		Name:    name,
-		Version: version,
+		Name:    Name,
+		Version: Version,
 		Topic:   operation.InterestOperationV2Topic}
 
 	producer, err := pub.Setup(c)
@@ -51,7 +52,7 @@ func addOneWorkItem(producer *nsq.Producer, c pub.Config, acc string) zipkin.Gho
 	producer.Publish(c.Topic, b)
 
 	ns := time.Since(start).Nanoseconds()
-	ghost := zipkin.LogParent(ZipKinUrl, FullName, action, ns)
+	ghost := zipkin.LogParent(ZipKinUrl, serviceName, fullName, ns)
 	return ghost
 
 }
