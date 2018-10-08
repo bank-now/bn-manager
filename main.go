@@ -19,7 +19,7 @@ const (
 
 var (
 	FullName = fmt.Sprint(name, "-", version)
-	action   = fmt.Sprint(operation.InterestOperationV2Topic, ".", "createItem")
+	action   = fmt.Sprint(operation.InterestOperationV2Topic, ".", "publishItem")
 )
 
 func main() {
