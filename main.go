@@ -35,11 +35,7 @@ func main() {
 	}
 
 	for i := 1; i <= 10; i++ {
-		ghost := addOneWorkItem(producer, c, fmt.Sprint(i))
-		item := operation.NewInterestOperationV2(fmt.Sprint(i))
-		item.Ghost = ghost
-		b, _ := item.ToJsonBytes()
-		producer.Publish(c.Topic, b)
+		addOneWorkItem(producer, c, fmt.Sprint(i))
 	}
 	producer.Stop()
 
@@ -48,11 +44,13 @@ func main() {
 func addOneWorkItem(producer *nsq.Producer, c pub.Config, acc string) zipkin.Ghost {
 	start := time.Now()
 	item := operation.NewInterestOperationV2(fmt.Sprint(acc))
+	s := zipkin.NewSpan(serviceName, fullName)
+	item.Ghost = s.ToGhost()
+
 	b, _ := item.ToJsonBytes()
 	producer.Publish(c.Topic, b)
-
 	ns := time.Since(start).Nanoseconds()
-	ghost := zipkin.LogParent(ZipKinUrl, serviceName, fullName, ns)
+	ghost := zipkin.LogParentFromSpan(ZipKinUrl, s, ns)
 	return ghost
 
 }
