@@ -35,8 +35,10 @@ func main() {
 		log.Fatal(err)
 	}
 
-	for i := 1; i <= 10; i++ {
-		addOneWorkItem(producer, c, fmt.Sprint(i))
+	for r := 1; r < 1000; r++ {
+		for i := 1; i <= 10; i++ {
+			addOneWorkItem(producer, c, fmt.Sprint(i))
+		}
 	}
 	producer.Stop()
 
@@ -50,7 +52,7 @@ func addOneWorkItem(producer *nsq.Producer, c pub.Config, acc string) zipkin.Gho
 
 	b, _ := item.ToJsonBytes()
 	producer.Publish(c.Topic, b)
-	ns := time.Since(start).Nanoseconds()
+	ns := time.Since(start)
 	ghost := zipkin.LogParentFromSpan(ZipKinUrl, s, ns)
 	return ghost
 

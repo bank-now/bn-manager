@@ -10,7 +10,7 @@
     "util",
     "zipkin"
   ]
-  revision = "b6135b4c4fcc64579a9eba513e94399c06f5ad13"
+  revision = "2a9b1cdbe83027b2f15b28390c2b1cd8b74c679d"
 
 [[projects]]
   branch = "master"
@@ -73,6 +73,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "7fbcc72fdcdc4ee864a6d909912c5832ecfce7f87a084c7fd33a6ab97f8632b7"
+  inputs-digest = "4a751d4a4c0db0039530b6610e6448f1cfa514fba90a14231ae3d6ef8101f175"
   solver-name = "gps-cdcl"
   solver-version = 1
