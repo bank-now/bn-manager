@@ -3,35 +3,28 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:d2f39b43c828ac9b1466f4f0256a3d2af2233a610e79426a8f06de1933cf0a49"
   name = "github.com/bank-now/bn-common-io"
   packages = [
     "queues/pub",
     "rest",
     "util",
-    "zipkin",
+    "zipkin"
   ]
-  pruneopts = "UT"
   revision = "b6135b4c4fcc64579a9eba513e94399c06f5ad13"
 
 [[projects]]
   branch = "master"
-  digest = "1:983999e5283a30769b7fbf1db9c7159f55c6ca69f86128ba905b21341242065b"
   name = "github.com/bank-now/bn-common-model"
   packages = ["common/operation"]
-  pruneopts = "UT"
   revision = "df6e7ad1444f4cc5f3e225934499a62e50e2e484"
 
 [[projects]]
-  digest = "1:94d8c9e3a4954505ca89243e2121180972eecf8e3d160f3b34a48825ddd95cc1"
   name = "github.com/golang-plus/errors"
   packages = ["."]
-  pruneopts = "UT"
   revision = "a61c34ead85085f3e1b87b8c04e49bbf60c99fb1"
   version = "v1.0.0"
 
 [[projects]]
-  digest = "1:224bf08a201edf15ec9f086549321257d5a2ee0d23dc649e7e6ad90ce5502439"
   name = "github.com/golang-plus/uuid"
   packages = [
     ".",
@@ -41,44 +34,45 @@
     "internal/namebased/md5",
     "internal/namebased/sha1",
     "internal/random",
-    "internal/timebased",
+    "internal/timebased"
   ]
-  pruneopts = "UT"
   revision = "a0510c37ef1f49c8290c3a9911d0f7f9ed24d335"
   version = "v1.0.0"
 
 [[projects]]
   branch = "master"
-  digest = "1:4a0c6bb4805508a6287675fac876be2ac1182539ca8a32468d8128882e9d5009"
   name = "github.com/golang/snappy"
   packages = ["."]
-  pruneopts = "UT"
   revision = "2e65f85255dbc3072edf28d6b5b8efc472979f5a"
 
 [[projects]]
-  digest = "1:3a26588bc48b96825977c1b3df964f8fd842cd6860cc26370588d3563433cf11"
   name = "github.com/google/uuid"
   packages = ["."]
-  pruneopts = "UT"
   revision = "d460ce9f8df2e77fb1ba55ca87fafed96c607494"
   version = "v1.0.0"
 
 [[projects]]
-  digest = "1:bb48459ec76efe45f13094480296462ef5c9aaa56662918819b7a8fce3155b8b"
   name = "github.com/nsqio/go-nsq"
   packages = ["."]
-  pruneopts = "UT"
   revision = "eee57a3ac4174c55924125bb15eeeda8cffb6e6f"
   version = "v1.0.7"
+
+[[projects]]
+  name = "github.com/openzipkin/zipkin-go"
+  packages = [
+    ".",
+    "idgenerator",
+    "model",
+    "propagation",
+    "reporter",
+    "reporter/http"
+  ]
+  revision = "70244c9703277c13566aac289c530a1143b14cf5"
+  version = "v0.1.2"
 
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  input-imports = [
-    "github.com/bank-now/bn-common-io/queues/pub",
-    "github.com/bank-now/bn-common-io/zipkin",
-    "github.com/bank-now/bn-common-model/common/operation",
-    "github.com/nsqio/go-nsq",
-  ]
+  inputs-digest = "7fbcc72fdcdc4ee864a6d909912c5832ecfce7f87a084c7fd33a6ab97f8632b7"
   solver-name = "gps-cdcl"
   solver-version = 1

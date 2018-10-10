@@ -24,6 +24,7 @@ var (
 )
 
 func main() {
+
 	c := pub.Config{Address: Address,
 		Name:    Name,
 		Version: Version,
