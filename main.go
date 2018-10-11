@@ -24,7 +24,10 @@ var (
 )
 
 func main() {
+	addAllWorkItems()
+}
 
+func addAllWorkItems() {
 	c := pub.Config{Address: Address,
 		Name:    Name,
 		Version: Version,
@@ -35,16 +38,29 @@ func main() {
 		log.Fatal(err)
 	}
 
-	for r := 1; r < 1000; r++ {
+	configZipkin := pub.Config{Address: Address,
+		Name:    Name,
+		Version: Version,
+		Topic:   operation.ZipKinOperationV1Topic}
+
+	producerZipKin, err := pub.Setup(configZipkin)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	start := time.Now()
+	for r := 1; r < 100; r++ {
 		for i := 1; i <= 10; i++ {
-			addOneWorkItem(producer, c, fmt.Sprint(i))
+			addOneWorkItem(producer, producerZipKin, c, fmt.Sprint(i))
 		}
 	}
+	ns := time.Since(start)
+	zipkin.LogParent(ZipKinUrl, "enqueue-work-interest", "addAllWorkItems", ns)
 	producer.Stop()
 
 }
 
-func addOneWorkItem(producer *nsq.Producer, c pub.Config, acc string) zipkin.Ghost {
+func addOneWorkItem(producer *nsq.Producer, zipKinProcuder *nsq.Producer, c pub.Config, acc string) zipkin.Ghost {
 	start := time.Now()
 	item := operation.NewInterestOperationV2(fmt.Sprint(acc))
 	s := zipkin.NewSpan(serviceName, fullName)
