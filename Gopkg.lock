@@ -3,16 +3,15 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:a323b2b6ff3e75244cca7b779cfae44b1bea4b2d427a4aeed210f41bb590ea96"
+  digest = "1:6e3b72430555a6138b0dfdc2d4f39c846a559063b8eeaf7249d7153ea5830df8"
   name = "github.com/bank-now/bn-common-io"
   packages = [
     "queues/pub",
-    "rest",
     "util",
     "zipkin",
   ]
   pruneopts = "UT"
-  revision = "c64b05286c3dc483d00dfe272dd72c308fd44727"
+  revision = "3efb69abb16716242a437616f5715225dc2d7851"
 
 [[projects]]
   branch = "master"

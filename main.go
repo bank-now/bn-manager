@@ -16,60 +16,69 @@ const (
 	Name        = "manager"
 	Address     = "192.168.88.24:4150"
 	ZipKinUrl   = "http://192.168.88.24:9411/api/v2/spans"
-	Action      = "publishItem"
 )
 
 var (
-	fullName = fmt.Sprint(Name, "-", Version, "-", Action)
+	fullName              = fmt.Sprint(Name, "-", Version)
+	addAllWorkItemsMethod = "addAllWorkItems"
+	addOneWorkItemMethod  = "addOneWorkItem"
 )
 
 func main() {
-	addAllWorkItems()
-}
-
-func addAllWorkItems() {
-	c := pub.Config{Address: Address,
+	configInterest := pub.Config{Address: Address,
 		Name:    Name,
 		Version: Version,
 		Topic:   operation.InterestOperationV2Topic}
 
-	producer, err := pub.Setup(c)
+	producerInterest, err := pub.Setup(configInterest)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	configZipkin := pub.Config{Address: Address,
+	configZipKin := pub.Config{Address: Address,
 		Name:    Name,
 		Version: Version,
 		Topic:   operation.ZipKinOperationV1Topic}
 
-	producerZipKin, err := pub.Setup(configZipkin)
+	producerZipKin, err := pub.Setup(configZipKin)
 	if err != nil {
 		log.Fatal(err)
 	}
 
+	addAllWorkItems(producerInterest, configInterest, producerZipKin, configZipKin)
+}
+
+func addAllWorkItems(producerInterest *nsq.Producer, configInterest pub.Config, producerZipKin *nsq.Producer, configZipKin pub.Config) {
+
 	start := time.Now()
-	for r := 1; r < 100; r++ {
+
+	for r := 1; r <= 1; r++ {
 		for i := 1; i <= 10; i++ {
-			addOneWorkItem(producer, producerZipKin, c, fmt.Sprint(i))
+			addOneWorkItem(producerInterest, configInterest, producerZipKin, configZipKin, fmt.Sprint(i))
 		}
 	}
+
 	ns := time.Since(start)
-	zipkin.LogParent(ZipKinUrl, "enqueue-work-interest", "addAllWorkItems", ns)
-	producer.Stop()
+	zipkin.LogParent(producerZipKin, configZipKin, fullName, addAllWorkItemsMethod, ns)
+
+	time.Sleep(5 * time.Second)
+	producerInterest.Stop()
+	producerZipKin.Stop()
 
 }
 
-func addOneWorkItem(producer *nsq.Producer, zipKinProcuder *nsq.Producer, c pub.Config, acc string) zipkin.Ghost {
+func addOneWorkItem(producer *nsq.Producer, c pub.Config, zipKinProducer *nsq.Producer, zipkinConfig pub.Config, acc string) zipkin.Ghost {
+
 	start := time.Now()
+
 	item := operation.NewInterestOperationV2(fmt.Sprint(acc))
-	s := zipkin.NewSpan(serviceName, fullName)
+	s := zipkin.NewSpan(serviceName, addOneWorkItemMethod)
 	item.Ghost = s.ToGhost()
 
 	b, _ := item.ToJsonBytes()
 	producer.Publish(c.Topic, b)
-	ns := time.Since(start)
-	ghost := zipkin.LogParentFromSpan(ZipKinUrl, s, ns)
+	d := time.Since(start)
+	ghost, _ := zipkin.LogParentSpan(zipKinProducer, zipkinConfig, s, d)
 	return ghost
 
 }
